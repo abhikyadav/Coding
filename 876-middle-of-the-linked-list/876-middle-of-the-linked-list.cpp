@@ -24,10 +24,10 @@ public:
             slow  =slow->next;
             count++;
         }
-        if(count%2==0)
-        {
-            return slow;
-        }
+        // if(count%2==0)
+        // {
+        //     return slow;
+        // }
         return slow;
     }
 };
