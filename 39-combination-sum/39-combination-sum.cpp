@@ -6,9 +6,12 @@ public:
     else if(remain == 0)output.push_back(current);
     else {
         for(int i=start;i<candidates.size();i++){
+            if(candidates[i]<= remain)
+            {
             current.push_back(candidates[i]);
             backtrack(output, current, candidates, remain - candidates[i], i);
             current.pop_back();
+            }
         }
     }
 }
