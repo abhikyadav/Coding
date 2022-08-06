@@ -1,17 +1,25 @@
 class Solution {
 public:
-    vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        sort(intervals.begin(),intervals.end());
-        vector<vector<int>> ans;
-        ans.push_back(intervals[0]);
-        for(auto i:intervals){
-            if(ans.back()[1]<i[0]){
-                ans.push_back(i);
+    vector<vector<int>> merge(vector<vector<int>>& in) {
+        vector<pair<int, int>>cord;
+        for(int i=0;i<in.size();i++) {
+            cord.push_back({in[i][0],in[i][1]});
+        }
+        sort(cord.begin(),cord.end());
+        int currentx = cord[0].first;
+        int currenty = cord[0].second;
+        vector<vector<int>>ans;
+        for(int i=1;i<in.size();i++) {
+            if(cord[i].first<=currenty) {
+                currenty = max(currenty, cord[i].second);
             }
-            else{
-                ans.back()[1]=max(ans.back()[1],i[1]);
+            else {
+                ans.push_back({currentx,currenty});
+                currentx = cord[i].first;
+                currenty= cord[i].second;
             }
         }
+        ans.push_back({currentx,currenty});
         return ans;
     }
 };
