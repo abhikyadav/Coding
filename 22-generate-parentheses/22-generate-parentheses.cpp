@@ -1,8 +1,9 @@
 class Solution {
 public:
-    vector<string> result;
+   vector<string> result;
     void helper(int open, int close, int n, string curr)
     {
+        cout<<n;
         if(curr.length()==2*n)
         {
             result.push_back(curr);
