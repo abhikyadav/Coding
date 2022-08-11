@@ -1,22 +1,13 @@
 class Solution {
 public:
     int climbStairs(int n) {
-        int first =1; int second =2;
-        if(n==1)
-        {
-            return first;
+        int t[n+1];
+        for(int i=0;i<=n;i++) t[i]=0;
+        t[1]=1;
+        if(n>=2) t[2]=2;
+        for(int i=3;i<=n;i++){
+             t[i] = t[i-1]+t[i-2];    
         }
-        if(n==2)
-        {
-            return second;
-        }
-        int third =0;
-        for(int i=3; i<=n; i++)
-        {
-            third = second + first;
-            first =second;
-            second = third;
-        }
-        return third;
+        return t[n];
     }
 };
