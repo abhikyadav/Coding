@@ -1,30 +1,21 @@
 class Solution {
 public:
     vector<int> relativeSortArray(vector<int>& arr1, vector<int>& arr2) {
-        int n  =arr1.size();
-        int m = arr2.size();
-        vector<int> ans;
-        unordered_map<int,int> mp;
-        for(int i=0; i<n; i++)
+        vector<int> dp(1001,0);
+        vector<int> res;
+        for(int i=0;i<arr1.size();i++) // store  freq of arr1 elements
+            dp[arr1[i]]++;
+        
+        for(int i=0;i<arr2.size();i++)
         {
-            mp[arr1[i]]++;
+            for(int j=0;j<dp[arr2[i]];j++) // copy arr2 elements first 
+                res.push_back(arr2[i]);
+			dp[arr2[i]]=0; // make arr2 elements frequency 0
         }
-        for(int i=0; i<m; i++)
-        {
-            while(mp[arr2[i]]>0)
-            {
-                ans.push_back(arr2[i]);
-                mp[arr2[i]]--;
-            }
-        }
-        for(int i=0; i<mp.size(); i++)
-        {
-            while(mp[i]>0)
-            {
-                ans.push_back(i);
-                mp[i]--;
-            }
-        }
-        return ans;
+        
+        for(int i=0;i<=1000;i++)
+            for(int j=0;j<dp[i];j++)
+                res.push_back(i);  // copy arr1 elements in order
+        return res;
     }
 };
