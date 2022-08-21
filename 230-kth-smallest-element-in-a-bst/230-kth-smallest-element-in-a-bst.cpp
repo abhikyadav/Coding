@@ -23,17 +23,21 @@ public:
         inorder(root->right);
     }
     
-    int kthSmallest(TreeNode* root, int k) {
-        if(root==NULL)
-        {
-            return -1;
+    int kthSmallest(TreeNode* node, int k) {
+        stack<TreeNode*>st;
+        while (node || !st.empty()) {
+            while (node!=0) {
+                st.push(node);
+                node=node->left;
+            }
+            
+            node = st.top();
+            st.pop();
+            
+            if (--k == 0) 
+                return node->val;
+            node = node->right;
         }
-        inorder(root);
-        int n=  ans.size();
-        if(k>n)
-        {
-            return -1;
-        }
-        return ans[k-1];
+        return -1;
     }
 };
