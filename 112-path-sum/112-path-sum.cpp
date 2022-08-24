@@ -11,24 +11,30 @@
  */
 class Solution {
 public:
-   bool pathsum(TreeNode* root, int sum, int target){
-        if(root==NULL){
-            return false;
-        }
+   bool hasPathSum(TreeNode* root, int targetSum) {
         
-        if(root->left==NULL and root->right==NULL){
-            sum = sum + root->val;
-            
-            if(sum==target) return true;
-            else return false;
-        }
+        // traverse down add to running sum, bail if greater than target
+        bool found = false;
         
-        return pathsum(root->left, sum+root->val, target) or pathsum(root->right, sum+root->val, target);
+        bfs(root, 0, targetSum, found);
+        
+        return found; 
     }
+private:
     
-    
-    bool hasPathSum(TreeNode* root, int targetSum) {
-        return pathsum(root, 0, targetSum);
+    void bfs(TreeNode* node, int runningSum, int targetSum, bool& isFound){
+        
+        if(isFound == true|| node == nullptr){ return; }
+        
+        runningSum += node->val;
+        
+        if(node->left == nullptr && node->right == nullptr){            
+            
+            if(runningSum == targetSum){ isFound = true; }
+        }
+        
+        bfs(node->left, runningSum, targetSum, isFound);
+        bfs(node->right, runningSum, targetSum, isFound);
     }
     
 };
