@@ -5,10 +5,11 @@ public:
         vector<int> ans;
         for(int i=0; i<nums.size();i++)
         {
-            if(mp.count(target-nums[i]))
+            int number = target-nums[i];
+            if(mp.find(number)!=mp.end())
             {
                 
-                ans.push_back(mp[target-nums[i]]);
+                ans.push_back(mp[number]);
                 ans.push_back(i);
                 return ans;
             }
