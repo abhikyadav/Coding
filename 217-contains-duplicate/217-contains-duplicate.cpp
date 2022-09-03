@@ -5,13 +5,13 @@ public:
         unordered_map<int, int> mp;
         for(int i=0; i<n; i++)
         {
-            mp[nums[i]]++;
-        }
-        for(int i=0; i<n; i++)
-        {
-            if(mp[nums[i]]>1)
+            if(mp[nums[i]]==1)
             {
                 return true;
+            }
+            else
+            {
+                mp[nums[i]]++;
             }
         }
         return false;
