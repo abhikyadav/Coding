@@ -10,5 +10,8 @@ public:
                
            }
         return maxi;
+        // sort(prices.begin(),prices.end());
+        // int n=  prices.size();
+        // return (prices[n-1]-prices[0]);
     }
 };
