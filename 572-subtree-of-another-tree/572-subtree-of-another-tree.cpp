@@ -11,32 +11,54 @@
  */
 class Solution {
 public:
-    bool identical(TreeNode* root, TreeNode* subRoot)
-    {
-        if(root==NULL && subRoot==NULL)
-        {
-            return true;
-        }
-        if(root==NULL || subRoot==NULL)
-        {
+//     bool identical(TreeNode* root, TreeNode* subRoot)
+//     {
+//         if(root==NULL && subRoot==NULL)
+//         {
+//             return true;
+//         }
+//         if(root==NULL || subRoot==NULL)
+//         {
+//             return false;
+//         }
+//         return ((root->val==subRoot->val)&&identical(root->left, subRoot->left)&&identical(root->right, subRoot->right));
+//     }
+//     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+//         if(root==NULL)
+//         {
+//             return 0;
+//         }
+//         if(subRoot==NULL)
+//         {
+//             return true;
+//         }
+//         if(identical(root, subRoot))
+//         {
+//             return true;
+//         }
+//         return (isSubtree(root->left,subRoot)||isSubtree(root->right,subRoot));
+        
+//     }
+    bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+        if (root == NULL) {
             return false;
         }
-        return ((root->val==subRoot->val)&&identical(root->left, subRoot->left)&&identical(root->right, subRoot->right));
+        if (isSame(root, subRoot)) {
+            return true;
+        }
+        return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
     }
-    bool isSubtree(TreeNode* root, TreeNode* subRoot) {
-        if(root==NULL)
-        {
-            return 0;
-        }
-        if(subRoot==NULL)
-        {
+private:
+    bool isSame(TreeNode* root, TreeNode* subRoot) {
+        if (root == NULL && subRoot == NULL) {
             return true;
         }
-        if(identical(root, subRoot))
-        {
-            return true;
+        if (root == NULL || subRoot == NULL) {
+            return false;
         }
-        return (isSubtree(root->left,subRoot)||isSubtree(root->right,subRoot));
-        
+        if (root->val != subRoot->val) {
+            return false;
+        }
+        return isSame(root->left, subRoot->left) && isSame(root->right, subRoot->right);
     }
 };
