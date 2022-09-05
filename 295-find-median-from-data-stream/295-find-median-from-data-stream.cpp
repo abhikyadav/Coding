@@ -1,31 +1,53 @@
 class MedianFinder {
-private:
-    priority_queue<int> firstQ; // max_heap for the first half
-    priority_queue<int, std::vector<int>, std::greater<int> > secQ; // min_heap for the second half
 public:
-    // Adds a number into the data structure.
-    void addNum(int num) {
-        if(firstQ.empty() || (firstQ.top()>num)) firstQ.push(num); // if it belongs to the smaller half
-        else secQ.push(num); 
+    MedianFinder() {
         
-        // rebalance the two halfs to make sure the length difference is no larger than 1
-        if(firstQ.size() > (secQ.size()+1))
-        {
-            secQ.push(firstQ.top());
-            firstQ.pop();
+    }
+    
+    void addNum(int num) {
+        if (lower.empty()) {
+            lower.push(num);
+            return;
         }
-        else if(firstQ.size()+1<secQ.size())
-        {
-            firstQ.push(secQ.top());
-            secQ.pop();
+        
+        if (lower.size() > higher.size()) {
+            if (lower.top() > num) {
+                higher.push(lower.top());
+                lower.pop();
+                lower.push(num);
+            } else {
+                higher.push(num);
+            }
+        } else {
+            if (num > higher.top()) {
+                lower.push(higher.top());
+                higher.pop();
+                higher.push(num);
+            } else {
+                lower.push(num);
+            }
         }
     }
-
-    // Returns the median of current data stream
+    
     double findMedian() {
-        if(firstQ.size() == secQ.size()) return firstQ.empty()?0:( (firstQ.top()+secQ.top())/2.0);
-        else return (firstQ.size() > secQ.size())? firstQ.top():secQ.top(); 
+        double result = 0.0;
+        
+        if (lower.size() == higher.size()) {
+            result = lower.top() + (higher.top() - lower.top()) / 2.0;
+        } else {
+            if (lower.size() > higher.size()) {
+                result = lower.top();
+            } else {
+                result = higher.top();
+            }
+        }
+        
+        return result;
     }
+private:
+    priority_queue<int> lower;
+    priority_queue<int, vector<int>, greater<int>> higher;
+
 };
 
 /**
